@@ -1,7 +1,8 @@
 ###그리디###
 
-#<내 풀이>
 ##2.큰수의법칙(동빈북 92P)
+
+#<내 풀이>
 #입력
 n,m,k = map(int, input().split())
 arr = list(map(int,input().split()))
@@ -84,4 +85,103 @@ result = 0
 result += count * first 
 result += (m-count) * second
 
+print(result)
+
+##3.숫자카드게임(동빈북 96P)
+
+#<내풀이>
+#min()을 왜 안썼지..
+
+#input
+n,m = map(int,input().split())
+
+#정렬
+arr = []
+
+for _ in range(n):
+  arr.append(list(map(int, input().split())))
+
+arr2 = []
+for i in range(n):
+  arr[i].sort()
+  arr2.append(arr[i][0])
+
+print(max(arr2))
+
+#<동빈북 풀이1>
+n, m = map(int,input().split())
+result = 0
+
+for i in range(n):
+  data = list(map(int, input().split()))
+  min_value = min(data)
+  result = max(result, min_value)
+
+print(result)
+
+#<동빈북 풀이2>
+n, m = map(int, input().split())
+result = 0
+
+for i in range(n):
+  data = list(map(int, input().split()))
+  min_value = 10001
+  for a in data:
+    min_value = min(min_value, a)
+  
+  result = max(result, min_value)
+  
+print(result)
+
+##4.1이 될 때까지(동빈북 99P)
+
+#<내풀이>
+n,k = map(int, input().split())
+cnt = 0
+while True:
+  cnt+=1
+  if n%k == 0:
+    n = n//k
+  else:
+    n = n-1
+  
+  if n == 1:
+    break
+
+print(cnt)
+
+#<동빈북 풀이1>
+
+n,k = map(int, input().split())
+result = 0
+
+while n>=k:
+  while n%k!=0:
+    n-=1
+    result+=1
+  n//=k
+  result+=1
+
+while n>1:
+  n-=1
+  result+=1
+
+print(result)
+
+#<동빈북 풀이2>
+n,k = map(int, input().split())
+result = 0
+
+while True:
+  #빼는 수를 한 번에 구할 수 있는 방법
+  target = (n//k)*k
+  result += (n-target)
+  n = target
+
+  if n < k:
+    break
+  result += 1
+  n//=k
+
+result += (n-1)
 print(result)

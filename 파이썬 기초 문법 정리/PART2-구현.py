@@ -1,5 +1,6 @@
 ###구현###
 
+
 #완전탐색, 시뮬레이션을 포함
 #-완전탐색 : 모든 경우의 수를 주저 없이 다 계산하는 해 결 방법
 #-시뮬레이션 : 문제에서 제시한 알고리즘을 한 단계씩 차례대로 직접 수행
@@ -83,3 +84,74 @@ for h in range(hour+1):
         cnt+=1
 
 print(cnt)
+
+
+##3.왕실의 나이트(동빈북 115p)
+#구현-시뮬레이션
+
+#<내풀이1>
+#바보같이 h8등 끝에 있는 반례에 대해 생각을 못했다.
+#반복화 할 수 있는데 중복 고민을 덜 했다..반성..
+val = str(input())
+a,b = val[0], int(val[1])
+arr = ['a','b','c','d','e','f','g','h']
+a = int(arr.index(a)+1)
+
+cnt = 0
+if a + 2 > 0 and b + 1 > 0:
+  cnt+=1
+if a - 2 > 0 and b - 1 > 0:
+  cnt+=1
+if a + 2 > 0 and b - 1 > 0:
+  cnt+=1
+if a - 2 > 0 and b + 1 > 0:
+  cnt+=1
+if a + 1 > 0 and b + 2 > 0:
+  cnt+=1
+if a - 1 > 0 and b - 2 > 0:
+  cnt+=1
+if a + 1 > 0 and b - 2 > 0:
+  cnt+=1
+if a - 1 > 0 and b + 2 > 0:
+  cnt+=1
+
+print(cnt)
+
+
+#<내풀이2 - 일부참고>
+val = str(input())
+a,b = val[0], int(val[1])
+arr = ['a','b','c','d','e','f','g','h']
+a = int(arr.index(a)+1)
+cnt=0
+
+steps = [(-2,-1),(-1,-2),(1,-2),(2,-1),(2, 1),(1, 2),(-1, 2),(-2, 1)]
+
+for step in steps:
+  a2 = a + step[0]
+  b2 = b + step[1]
+
+  #h8등의 반례 고려 못함
+  # if a2 > 0 and b2 > 0:
+  #   cnt+=1
+
+  if a2 > 0 and a2 < 9 and b2 > 0 and b2 < 9:
+    cnt+=1
+
+print(cnt)
+
+#<동빈북 풀이>
+input_data = input()
+row = int(input_data[1])
+column = int(ord(input_data[0])) - int(ord('a')) + 1
+steps = [(-2,-1),(-1,-2),(1,-2),(2,-1),(2, 1),(1, 2),(-1, 2),(-2, 1)]
+
+result = 0
+for step in steps:
+  next_row = row + step[0]
+  next_column = column + step[1]
+
+  if next_row >=1 and next_row <=8 and next_column >=1 and next_column <=8:
+    result+=1
+
+print(result)

@@ -75,7 +75,7 @@ for i in range(1,len(arr)):
 
 print(arr)
 
-##<실전문제 : 성적이 낮은 순서로 학생 출력하기>
+##<실전문제 : 성적이 낮은 순서로 학생 출력하기(동빈북 180p)>
 
 #<내풀이-파이썬라이브러리>
 n = int(input())
@@ -90,9 +90,42 @@ for i in range(n):
 #람다사용
 arr.sort(key=lambda student: student[1])
 
+'''
+입력
+2
+홍길동 95
+이순신 77
+출력
+이순신 홍길동
+'''
 
 for i in arr:
   print(i[0], end= ' ')
 
 
-#<내풀이-계수정렬>
+#<실전문제 : 두 배열의 원소 교체(동빈북 182p)>
+n,k = map(int, input().split())
+a = list(map(int, input().split()))
+b = list(map(int, input().split()))
+
+a = sorted(a)
+b = sorted(b, reverse=True)
+
+print(a,b)
+
+for i in range(k):
+  if a[i] < b[i]:
+    a[i],b[i] = b[i],a[i]
+  else:
+    break
+
+print(sum(a))
+
+'''
+입력
+5 3
+1 2 5 4 3
+5 5 6 6 5
+출력
+26
+'''

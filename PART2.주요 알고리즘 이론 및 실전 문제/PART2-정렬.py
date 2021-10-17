@@ -74,3 +74,25 @@ for i in range(1,len(arr)):
       break
 
 print(arr)
+
+##<실전문제 : 성적이 낮은 순서로 학생 출력하기>
+
+#<내풀이-파이썬라이브러리>
+n = int(input())
+arr = []
+for i in range(n):
+  arr.append(input().split())
+
+# def key_sort(arr):
+#   return arr[0]
+# arr.sort(key=key_sort)
+
+#람다사용
+arr.sort(key=lambda student: student[1])
+
+
+for i in arr:
+  print(i[0], end= ' ')
+
+
+#<내풀이-계수정렬>

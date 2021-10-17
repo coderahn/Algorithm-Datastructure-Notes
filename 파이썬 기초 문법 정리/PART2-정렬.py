@@ -5,7 +5,6 @@
 선택정렬, 삽입정렬, 퀵정렬, 계수정렬만 우선적으로 학습
 '''
 
-
 ##선택정렬예제(동빈북 159p)
 
 #선택정렬은 O(N^2) 시간복잡도
@@ -37,3 +36,41 @@ for i in range(1, len(array2)):
       break
 
 print(array2)
+
+##퀵정렬예제(동빈북 168p)
+
+##계수정렬예제(동빈북 174p)
+
+##<실전문제 : 위에서 아래로>
+
+#<내풀이-선택정렬>
+n = int(input())
+arr = []
+
+for _ in range(n):
+  arr.append(int(input()))
+
+for i in range(len(arr)):
+  max_index = i
+  for j in range(i+1, len(arr)):
+    if arr[max_index] < arr[j]:
+      max_index = j
+  arr[i], arr[max_index] = arr[max_index], arr[i]
+
+print(arr)
+
+#<내풀이-삽입정렬>
+n = int(input())
+arr = []
+
+for _ in range(n):
+  arr.append(int(input()))
+
+for i in range(1,len(arr)):
+  for j in range(i, 0, -1):
+    if arr[j] > arr[j-1]:
+      arr[j], arr[j-1] = arr[j-1], arr[j]
+    else:
+      break
+
+print(arr)

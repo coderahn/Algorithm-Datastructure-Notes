@@ -95,3 +95,40 @@ for i in range(m):
 출력
 no yes yes
 '''
+
+##떡볶이 떡 만들기(동빈북 201p)
+
+'''
+파라메트릭 서치 유형(최적화문제를 결정문제로 바꾸어 해결하는 기법)
+'''
+n,m = map(int, input().split())
+arr = list(map(int, input().split()))
+sum = 0
+start = 0
+end = max(arr)
+result = 0
+while start <= end:
+  sum = 0
+  mid = (start + end) // 2
+
+  for i in arr:
+    if i > mid:
+      sum += (i-mid)
+
+  if sum < m:
+    end = mid - 1
+  else:
+    start = mid + 1
+    result = mid
+
+print(result)
+
+'''
+입력
+4 6
+19 15 10 17
+출력
+15
+'''
+
+

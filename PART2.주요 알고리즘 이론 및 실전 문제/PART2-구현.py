@@ -155,3 +155,47 @@ for step in steps:
     result+=1
 
 print(result)
+
+##4.게임 개발(동빈북 118p)
+
+'''
+-책에서는 n방향,m방향을 따로 배열로 선언했지만 나는 하나의 리스트로 선언하여 튜플로 저장하였다.
+-책에서는 방향 함수를 따로 빼서 global 변수처리로 d를 조종하였다. 하나의 특성으로 묶을 수 있는건 함수로 처리하려고 하자.
+'''
+#<내풀이>
+n,m = map(int, input().split())
+x,y,d = map(int, input().split())
+move_array = [(-1,0),(0,1),(1,0),(0,-1)]
+map_array = []
+for i in range(n):
+  map_array.append(list(map(int, input().split())))
+move_count = 0
+result = 1
+
+while True:
+  d-=1
+  if d == -1:
+    d = 3
+  
+  dx = x + move_array[d][0]
+  dy = y + move_array[d][1]
+
+  if map_array[dx][dy] == 1:
+    move_count+=1
+  else:
+    map_array[dx][dy] = 1
+    x = dx
+    y = dy
+    result += 1
+    move_count = 0
+
+  if move_count == 4:
+    dx = x - move_array[d][0]
+    dy = y - move_array[d][1]
+
+    if map_array[dx][dy] == 1:
+      break
+    else:
+      move_count = 0
+
+print(result)

@@ -56,7 +56,7 @@ else:
 총 시간복잡도 O((N+M) * logN)
 '''
 
-#내풀이(동빈북 197p)
+#이진탐색 방법
 n = int(input())
 arr1 = list(map(int, input().split()))
 
@@ -86,6 +86,23 @@ for i in range(m):
   else:
     print('no', end= ' ')
 
+#계수정렬 방법
+n = int(input())
+arr = list(map(int, input().split()))
+count = [0] * (max(arr) + 1)
+
+m = int(input())
+findArr = list(map(int, input().split()))
+
+for i in arr:
+  count[i] += 1
+
+print(count)  
+for i in findArr:
+  if count[i] != 0:
+    print('yes', end=' ')
+  else:
+    print('no', end=' ')
 '''
 입력
 5

@@ -118,6 +118,8 @@ no yes yes
 '''
 파라메트릭 서치 유형(최적화문제를 결정문제로 바꾸어 해결하는 기법)
 '''
+
+#<책풀이>
 n,m = map(int, input().split())
 arr = list(map(int, input().split()))
 sum = 0
@@ -137,6 +139,39 @@ while start <= end:
   else:
     start = mid + 1
     result = mid
+
+print(result)
+
+#<내풀이(2회차)>
+n,m = map(int, input().split())
+
+arr = list(map(int, input().split()))
+sum = 0
+
+def binary_search(arr, target, start, end):
+  global sum
+  
+  #손님이 원하는 떡 길이(target)과 절단된 떡의 합(sum)이 같지 않다면 반복
+  while target != sum:
+    sum = 0
+    mid = (start + end) // 2
+    
+    #절단된 떡을 합치기
+    for i in arr:
+      if (i - mid) > 0:
+        sum += (i - mid)
+        
+    if sum == target:
+      return mid
+    elif sum > target:
+      start = mid + 1
+    else:
+      end = mid - 1
+      
+  return None
+
+#end는 가장 긴 떡을 기준으로 이진탐색
+result = binary_search(arr, m, 0, max(arr))
 
 print(result)
 

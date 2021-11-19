@@ -187,6 +187,73 @@ else:
 사이클이 발생했습니다.
 '''
 
+##실전문제2. 팀결성(동빈북 298p)
+
+n,m = map(int, input().split())
+data = []
+#부모노드 체크 리스트
+parent = [0] * (n + 1)
+
+#부모노트 체크 리스트 초기화(자기자신)
+for i in range(1, n + 1):
+  parent[i] = i
+
+for i in range(m):
+  #팀 합치기,찾기 여부 / a / b
+  a,b,c = map(int, input().split())
+  data.append((a,b,c))
+
+#find연산
+def find_parent(parent, x):
+  if parent[x] != x:
+    parent[x] = find_parent(parent, parent[x])
+  return parent[x]
+
+#union연산
+def union_parent(parent, a ,b):
+  a = find_parent(parent, a)
+  b = find_parent(parent, b)
+  
+  if a < b:
+    parent[b] = a
+  else:
+    parent[a] = b
+
+'''
+입력
+7 8
+0 1 3
+1 1 7
+0 7 6
+1 7 1
+0 3 7
+0 4 2
+0 1 1
+1 1 1
+출력
+1 1 1
+NO
+NO
+YES
+'''
+
+#파인드할지 유니온할지 체크
+for i in data:
+  if (i[0] == 0):
+    #union
+    union_parent(parent, i[1],i[2])
+  else:
+    #find
+    if find_parent(parent, i[1]) == find_parent(parent, i[2]):
+      print('YES')
+    else:
+      print('NO')
+  
+
+
+
+
+
 ##[신장트리]
 
 '''

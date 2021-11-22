@@ -187,73 +187,6 @@ else:
 사이클이 발생했습니다.
 '''
 
-##실전문제2. 팀결성(동빈북 298p)
-
-n,m = map(int, input().split())
-data = []
-#부모노드 체크 리스트
-parent = [0] * (n + 1)
-
-#부모노트 체크 리스트 초기화(자기자신)
-for i in range(1, n + 1):
-  parent[i] = i
-
-for i in range(m):
-  #팀 합치기,찾기 여부 / a / b
-  a,b,c = map(int, input().split())
-  data.append((a,b,c))
-
-#find연산
-def find_parent(parent, x):
-  if parent[x] != x:
-    parent[x] = find_parent(parent, parent[x])
-  return parent[x]
-
-#union연산
-def union_parent(parent, a ,b):
-  a = find_parent(parent, a)
-  b = find_parent(parent, b)
-  
-  if a < b:
-    parent[b] = a
-  else:
-    parent[a] = b
-
-'''
-입력
-7 8
-0 1 3
-1 1 7
-0 7 6
-1 7 1
-0 3 7
-0 4 2
-0 1 1
-1 1 1
-출력
-1 1 1
-NO
-NO
-YES
-'''
-
-#파인드할지 유니온할지 체크
-for i in data:
-  if (i[0] == 0):
-    #union
-    union_parent(parent, i[1],i[2])
-  else:
-    #find
-    if find_parent(parent, i[1]) == find_parent(parent, i[2]):
-      print('YES')
-    else:
-      print('NO')
-  
-
-
-
-
-
 ##[신장트리]
 
 '''
@@ -262,6 +195,7 @@ for i in data:
 -크루스칼 알고리즘을 사용하면 가장 적은 비용으로 모든 노드 연결(그리디 알고리즘으로 분류)
 1)모든 간선에 대하여 정렬 수행
 2)가장 거리 짧은 간선부터 집합에 포함시키기(a,b의 루트노드가 같지 않을 때 union_parent)
+-크루스칼 알고리즘 시간복잡도 O(ElogE) : 가장 시간 많이 소요되는 게 정렬이기 때문에, 정렬 라이브러리 시간
 '''
 
 ##예제10-5. 크루스칼 알고리즘 
@@ -385,3 +319,130 @@ def topology_sort():
     print(i, end=' ')
     
 topology_sort()
+
+##실전문제2. 팀결성(동빈북 298p)
+
+n,m = map(int, input().split())
+data = []
+#부모노드 체크 리스트
+parent = [0] * (n + 1)
+
+#부모노트 체크 리스트 초기화(자기자신)
+for i in range(1, n + 1):
+  parent[i] = i
+
+for i in range(m):
+  #팀 합치기,찾기 여부 / a / b
+  a,b,c = map(int, input().split())
+  data.append((a,b,c))
+
+#find연산
+def find_parent(parent, x):
+  if parent[x] != x:
+    parent[x] = find_parent(parent, parent[x])
+  return parent[x]
+
+#union연산
+def union_parent(parent, a ,b):
+  a = find_parent(parent, a)
+  b = find_parent(parent, b)
+  
+  if a < b:
+    parent[b] = a
+  else:
+    parent[a] = b
+
+#파인드할지 유니온할지 체크
+for i in data:
+  if (i[0] == 0):
+    #union
+    union_parent(parent, i[1],i[2])
+  else:
+    #find
+    if find_parent(parent, i[1]) == find_parent(parent, i[2]):
+      print('YES')
+    else:
+      print('NO')
+
+'''
+입력
+7 8
+0 1 3
+1 1 7
+0 7 6
+1 7 1
+0 3 7
+0 4 2
+0 1 1
+1 1 1
+출력
+1 1 1
+NO
+NO
+YES
+'''
+
+##실전문제3. 도시분할계획(동빈북 300p)
+
+'''
+-최소신장트리 크루스칼 알고리즘으로 최소 노드 간선값들부터 합해서 구한 후, 마지막 노드(가장 비용이 큰 노드)를 제거한다.
+-그냥 cost가 가장 큰 비용을 제거하면 안되는 이유는?
+'''
+
+v,e = map(int, input().split())
+edges = []
+result = 0
+parent = [0] * (v + 1)
+
+for i in range(1, v + 1):
+  parent[i] = i
+
+def find_parent(parent, x):
+  if parent[x] != x:
+    parent[x] = find_parent(parent, parent[x])
+  return parent[x]
+
+def union_parent(parent, a, b):
+  a = find_parent(parent, a)
+  b = find_parent(parent, b)
+  
+  if a < b:
+    parent[b] = a
+  else:
+    parent[a] = b
+
+
+#간선개수만큼 거리비용 입력
+for i in range(e):
+  a,b,cost = map(int, input().split())
+  edges.append((cost, a, b))
+  
+edges.sort()
+for edge in edges:
+  cost,a,b = edge
+  
+  if find_parent(parent, a) != find_parent(parent, b): 
+    union_parent(parent, a, b)
+    result += cost
+    last = cost
+
+print(result - last)
+
+'''
+입력
+7 12
+1 2 3
+1 3 2
+3 2 1
+2 5 2
+3 4 4
+7 3 6
+5 1 5
+1 6 2
+6 4 1
+6 5 3
+4 5 3
+6 7 4
+출력
+8
+'''

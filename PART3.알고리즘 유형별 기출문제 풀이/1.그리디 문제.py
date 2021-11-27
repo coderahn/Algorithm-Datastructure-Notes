@@ -31,6 +31,19 @@ while q:
 
 print(result)
 
+#책풀이
+n = int(input())
+arr = list(map(int, input().split()))
+count = 0
+result = 0
+for i in arr:
+  count += 1
+  if count >= i:
+    count = 0
+    result += 1
+
+print(result)
+
 '''
 입력
 5
